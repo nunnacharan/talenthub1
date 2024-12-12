@@ -5,14 +5,14 @@ import { useNavigate } from 'react-router-dom';
 import { DocumentDownloadIcon } from '@heroicons/react/solid';
 import './CandidateDetails.css';
 import { EyeIcon } from '@heroicons/react/solid';
-import { FaBell, FaHistory, FaSignOutAlt } from 'react-icons/fa';
+import { FaSignOutAlt } from 'react-icons/fa';
 import oneVectorImage from './images/onevector.png'; // Adjust the path based on your folder structure
 
 
 
 
 
-function PowerCandidateDetails() {
+function CandidateDetails() {
     const location = useLocation();
     const candidate = location.state?.candidate; // Get candidate data from the state
     const navigate = useNavigate();
@@ -79,12 +79,6 @@ function PowerCandidateDetails() {
     }, []);
 
 
-    const handleFileChange = (e) => {
-        const file = e.target.files[0];
-        if (file) {
-            setResumeFile(file);
-        }
-    };
 
     const handleResumeUpload = async () => {
         if (!resumeFile) {
@@ -125,11 +119,11 @@ function PowerCandidateDetails() {
        }*/
 
            try {
-            const resumeUrl = `http://localhost:3000/api/resume/${details.personalDetails.id}`;
-            window.open(resumeUrl, '_blank'); // Opens the resume in a new tab
-          } catch (error) {
-            alert('Failed to view resume');
-          }
+               const resumeUrl = `http://localhost:3000/api/resume/${details.personalDetails.id}`;
+               window.open(resumeUrl, '_blank'); // Opens the resume in a new tab
+             } catch (error) {
+               alert('Failed to view resume');
+             }
    };
 
     const handleResumeChange = (e) => {
@@ -277,65 +271,46 @@ const recentJob = formData.qualifications.length > 0 ? formData.qualifications[0
     return (
 
       <div className="min-h-screen bg-white text-black font-sans">
+  {/* Navbar */}
+  <header className="fixed top-0 left-0 right-0 bg-white shadow-md z-10">
+    <div className="flex justify-between items-center p-4">
+      {/* Logo and Title on the left */}
+      <div className="flex items-center space-x-3">
+        <img src={oneVectorImage} alt="OneVector Logo" className="w-[30px] h-[40px]" />
+        <h1 className="text-2xl font-normal text-gray-800 tracking-wide">TalentHub</h1>
+      </div>
 
-        
- {/* Navbar */}
- <header className="fixed top-0 left-0 right-0 bg-white shadow-md z-10">
-  <div className="flex justify-between items-center p-4">
-    {/* Logo and Title on the left */}
-    <div className="flex items-center space-x-3">
-    <img src={oneVectorImage} alt="OneVector Logo" className="w-[30px] h-[40px]" />
-    <h1 className="text-2xl font-normal text-gray-800 tracking-wide">
-        TalentHub
-      </h1>
+      {/* Dashboard Link in the middle */}
+      <div className="flex-1 text-center">
+        <Link
+          to="/power-user-dashboard" // Update with your actual route path
+          className="text-l font-light text-black-600 underline hover:text-gray-800 transition-all duration-300 transform hover:scale-110 hover:text-lg hover:underline-offset-4 custom-underline mr-24"
+          >
+          Dashboard
+        </Link>
+      </div>
+
+      {/* Buttons on the right */}
+      <div className="flex items-center space-x-6">
+        <button
+          onClick={handleLogout}
+          className="px-4 py-2 bg-red-500 text-white rounded-lg flex items-center space-x-2 hover:bg-red-400"
+        >
+          <FaSignOutAlt size={14} />
+          <span>Logout</span>
+        </button>
+      </div>
     </div>
-
-    {/* Buttons on the right */}
-    <div className="flex items-center space-x-6">
-      <button
-        onClick={handleLogout}
-        className="px-4 py-2 bg-red-500 text-white rounded-lg flex items-center space-x-2 hover:bg-red-400"
-      >
-        <FaSignOutAlt size={14} />
-        <span>Logout</span>
-      </button>
-    </div>
-  </div>
-</header>
-
+  </header>
 
       <div>
   {/* Candidate Details Section */}
   <div className="bg-white  rounded-lg p-6 ml-4 mr-4 mb-0 mt-20 relative">
     {/* Bottom Border */}
     <div className="border-b-0 py-4 flex items-center justify-between">
-      {/* Back Button aligned above the Name */}
-      <div className="flex flex-col items-start">
-      <Link
-  to="/power-user-dashboard"
-  className="p-2 bg-black text-white rounded-full hover:bg-gray-800 transition duration-300"
->
-  {/* Back Arrow Icon */}
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    className="w-4 h-4"
-    fill="none"
-    stroke="currentColor"
-    viewBox="0 0 24 24"
-    strokeWidth="2"
-  >
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      d="M15 19l-7-7 7-7"
-    />
-  </svg>
-</Link>
-      </div>
-
-      {/* Candidate Name and Recent Job */}
-      <div className="flex-grow text-left flex flex-col items-start ml-5">
-        <h1 className="text-4xl font-serif text-black truncate">
+     {/* Candidate Name and Recent Job */}
+     <div className="flex-grow text-left flex flex-col items-start ml-5">
+        <h1 className="text-2xl font-serif text-black truncate">
           {`${formData?.personalDetails?.first_name || ''} ${formData?.personalDetails?.last_name || ''}`.trim() || 'N/A'}
         </h1>
         <p className="text-base text-gray-500 font-medium mt-2 mr-2">
@@ -353,137 +328,127 @@ const recentJob = formData.qualifications.length > 0 ? formData.qualifications[0
       </button>
     </div>
 
-
-          <div className="w-full px-8 space-y-8">
-  {/* Personal Details Layout */}
-  <div className="flex flex-col space-y-8 mt-15">
+{/* Personal Details Layout */}
+<div className="w-full px-4 space-y-4">
+  <div className="flex flex-col space-y-4 ">
     <div className="min-h-[0px]">
       {/* Header */}
-      <div className="max-w-full mx-auto flex justify-between items-center mb-4 mt-16 relative">
-        <h2 className="text-3xl font-semibold text-black mb-1">Personal Details</h2>
+      <div className="max-w-full mx-auto flex justify-between items-center mb-2 mt-6 relative">
+        <h2 className="text-lg font-serif text-black truncate">Personal Details</h2>
         <button
           onClick={() => handleEditToggle('personal')}
           className="text-[#72757F] hover:text-[#505257] transition duration-300"
         >
-          <i className="fas fa-edit text-2xl" /> {/* Edit Icon */}
+          <i className="fas fa-edit text-lg" />
         </button>
-        <div className="absolute bottom-[-9px] left-0 w-full border-b-2 border-gray-300" />
+        <div className="absolute bottom-[-6px] left-0 w-full border-b border-gray-300" />
       </div>
 
       {/* Personal Details Content */}
-      <div className="p-8 rounded-lg bg-white">
+      <div className="p-4 rounded-lg bg-white">
         {isEditing.personal ? (
           <form onSubmit={(e) => handleSubmit(e, 'personal')}>
             {/* Editable Fields */}
-            <div className="grid grid-cols-3 gap-x-12 gap-y-8">
-              {/* Username */}
+            <div className="grid grid-cols-3 gap-x-8 gap-y-4">
               <div className="flex flex-col">
-                <label className="text-lg font-medium text-gray-700">Username</label>
+                <label className="text-sm font-medium text-gray-700">Username</label>
                 <input
                   type="text"
                   name="username"
                   value={candidate.username || ''}
                   onChange={handleChange}
-                  className="border border-gray-300 rounded-md p-3 text-base focus:outline-none focus:ring-2 focus:ring-[#72757F]"
+                  className="border border-gray-300 rounded-md p-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#72757F]"
                 />
               </div>
-              {/* Phone Number */}
               <div className="flex flex-col">
-                <label className="text-lg font-medium text-gray-700">Phone Number</label>
+                <label className="text-sm font-medium text-gray-700">Phone Number</label>
                 <input
                   type="text"
                   name="phone_no"
                   value={formData.personalDetails?.phone_no || ''}
                   onChange={handleChange}
-                  className="border border-gray-300 rounded-md p-3 text-base focus:outline-none focus:ring-2 focus:ring-[#72757F]"
+                  className="border border-gray-300 rounded-md p-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#72757F]"
                 />
               </div>
-              {/* City */}
               <div className="flex flex-col">
-                <label className="text-lg font-medium text-gray-700">City</label>
+                <label className="text-sm font-medium text-gray-700">City</label>
                 <input
                   type="text"
                   name="city"
                   value={formData.personalDetails?.city || ''}
                   onChange={handleChange}
-                  className="border border-gray-300 rounded-md p-3 text-base focus:outline-none focus:ring-2 focus:ring-[#72757F]"
+                  className="border border-gray-300 rounded-md p-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#72757F]"
                 />
               </div>
-              {/* State */}
               <div className="flex flex-col">
-                <label className="text-lg font-medium text-gray-700">State</label>
+                <label className="text-sm font-medium text-gray-700">State</label>
                 <input
                   type="text"
                   name="state"
                   value={formData.personalDetails?.state || ''}
                   onChange={handleChange}
-                  className="border border-gray-300 rounded-md p-3 text-base focus:outline-none focus:ring-2 focus:ring-[#72757F]"
+                  className="border border-gray-300 rounded-md p-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#72757F]"
                 />
               </div>
-              {/* Postal Code */}
               <div className="flex flex-col">
-                <label className="text-lg font-medium text-gray-700">Postal Code</label>
+                <label className="text-sm font-medium text-gray-700">Postal Code</label>
                 <input
                   type="text"
                   name="postal_code"
                   value={formData.personalDetails?.postal_code || ''}
                   onChange={handleChange}
-                  className="border border-gray-300 rounded-md p-3 text-base focus:outline-none focus:ring-2 focus:ring-[#72757F]"
+                  className="border border-gray-300 rounded-md p-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#72757F]"
                 />
               </div>
-              {/* Address */}
               <div className="flex flex-col">
-                <label className="text-lg font-medium text-gray-700">Address</label>
+                <label className="text-sm font-medium text-gray-700">Address</label>
                 <input
                   type="text"
                   name="address_line1"
                   value={formData.personalDetails?.address_line1 || ''}
                   onChange={handleChange}
-                  className="border border-gray-300 rounded-md p-3 text-base focus:outline-none focus:ring-2 focus:ring-[#72757F]"
+                  className="border border-gray-300 rounded-md p-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#72757F]"
                 />
               </div>
-              {/* LinkedIn URL */}
               <div className="flex flex-col">
-                <label className="text-lg font-medium text-gray-700">LinkedIn URL</label>
+                <label className="text-sm font-medium text-gray-700">LinkedIn URL</label>
                 <input
                   type="text"
                   name="linkedin_url"
                   value={formData.personalDetails?.linkedin_url || ''}
                   onChange={handleChange}
-                  className="border border-gray-300 rounded-md p-3 text-base focus:outline-none focus:ring-2 focus:ring-[#72757F]"
+                  className="border border-gray-300 rounded-md p-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#72757F]"
                 />
               </div>
-              {/* Resume */}
               <div className="flex flex-col">
-                <label className="text-lg font-medium text-gray-700">Resume</label>
+                <label className="text-sm font-medium text-gray-700">Resume</label>
                 <input
                   type="file"
                   name="resume"
                   onChange={handleResumeChange}
-                  className="border border-gray-300 rounded-md p-3 text-base focus:outline-none focus:ring-2 focus:ring-[#72757F]"
+                  className="border border-gray-300 rounded-md p-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#72757F]"
                 />
               </div>
             </div>
             {/* Actions */}
-            <div className="flex justify-end mt-8 space-x-4">
+            <div className="flex justify-end mt-4 space-x-2">
               <button
                 type="submit"
-                className="px-6 py-3 bg-[#72757F] text-white rounded-md hover:bg-[#505257] transition duration-300"
+                className="px-4 py-2 bg-[#72757F] text-white rounded-md hover:bg-[#505257] transition duration-300"
               >
                 Save Changes
               </button>
               <button
                 type="button"
                 onClick={() => handleEditToggle('personal')}
-                className="px-6 py-3 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400 transition duration-300"
+                className="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400 transition duration-300"
               >
                 Cancel
               </button>
             </div>
           </form>
         ) : (
-          <div className="grid grid-cols-3 gap-x-12 gap-y-8">
-            {/* Non-editable Fields */}
+          <div className="grid grid-cols-3 gap-x-8 gap-y-4">
             {[
               ['Username', candidate.username || 'N/A'],
               ['Phone Number', formData.personalDetails?.phone_no || 'N/A'],
@@ -491,12 +456,24 @@ const recentJob = formData.qualifications.length > 0 ? formData.qualifications[0
               ['State', formData.personalDetails?.state || 'N/A'],
               ['Postal Code', formData.personalDetails?.postal_code || 'N/A'],
               ['Address', formData.personalDetails?.address_line1 || 'N/A'],
-              ['LinkedIn URL', formData.personalDetails?.linkedin_url || 'N/A'],
-              ['Resume', 'Uploaded'], // Assuming uploaded
+              ['LinkedIn URL', formData.personalDetails?.linkedin_url ? (
+                <div className="flex items-center">
+                  <a
+                    href={formData.personalDetails.linkedin_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-sm text-gray-600 font-light hover:text-black hover:text-base transition-all duration-300"
+                  >
+                    {formData.personalDetails.linkedin_url}
+                  </a>
+                  <i className="fas fa-link ml-2 text-gray-600 hover:text-black hover:text-base transition-all duration-300"></i>
+                </div>
+              ) : 'N/A'],
+            ['Resume', 'Uploaded'],
             ].map(([label, value], index) => (
               <div key={index} className="flex flex-col">
-                <label className="text-lg font-medium text-black">{label}</label>
-                <p className="text-lg text-gray-600 font-light">{value}</p>
+                <label className="text-sm font-medium text-black">{label}</label>
+                <p className="text-sm text-gray-600 font-light">{value}</p>
               </div>
             ))}
           </div>
@@ -506,36 +483,36 @@ const recentJob = formData.qualifications.length > 0 ? formData.qualifications[0
 
 
 
+
     <div className="flex-1 min-h-[0px]">
   {/* Qualifications Section */}
-  <div className="max-w-full mx-auto mr-1 mt-18 mb-14">
+  <div className="max-w-full mx-auto mr-1 mt-6 mb-10">
     {/* Qualifications Header (outside the box) */}
-    <div className="flex justify-between items-center mb-4 relative">
-      <h2 className="text-2xl font-semibold text-black">Qualifications</h2>
-      <button
+    <div className="flex justify-between items-center mb-3 relative">
+    <h2 className="text-lg font-serif text-black truncate">Qualifications</h2>
+    <button
         onClick={() => handleEditToggle('qualifications')}
         className="text-[#989AA1] hover:text-[#CCCDD2] transition duration-300"
       >
-        <i className="fas fa-edit text-xl" />
+        <i className="fas fa-edit text-sm" />
       </button>
       {/* Underline effect */}
-      <span className="absolute bottom-[-13px] left-0 w-full border-b-[2px] border-gray-300" />
+      <span className="absolute bottom-[-10px] left-0 w-full border-b border-gray-300" />
     </div>
 
     {/* Qualifications Content Box */}
-    <div className="bg-white p-6 rounded-lg mb-4 ">
-      {/* Content when in edit mode */}
+    <div className="bg-white p-4 rounded-lg mb-4">
       {isEditing.qualifications ? (
-        <form onSubmit={(e) => handleSubmit(e, 'qualifications')} className="space-y-6">
+        <form onSubmit={(e) => handleSubmit(e, 'qualifications')} className="space-y-4">
           {formData.qualifications.map((qual, index) => (
-            <div key={index} className="space-y-6">
-              {/* Grid layout for qualifications with 3 details per row */}
-              <div className="grid grid-cols-3 gap-x-6 gap-y-6 text-[#989AA1]">
-                {/* Column 1 */}
+            <div key={index} className="space-y-4">
+              {/* Grid layout for qualifications */}
+              <div className="grid grid-cols-3 gap-x-4 gap-y-4 text-gray-700">
+                {/* Recent Job */}
                 <div className="text-left">
                   <label
                     htmlFor={`qualification_${index}_recent_job`}
-                    className="block text-xl font-medium text-black mb-2"
+                    className="block text-sm font-medium text-black mb-1"
                   >
                     Recent Job
                   </label>
@@ -544,16 +521,16 @@ const recentJob = formData.qualifications.length > 0 ? formData.qualifications[0
                     name={`qualification_${index}_recent_job`}
                     value={qual.recent_job || ''}
                     onChange={handleChange}
-                    className="mt-1 block w-full p-3 bg-gray-100 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#72757F] transition duration-200 text-[#4A4A4A] text-xl"
+                    className="block w-full p-2 bg-gray-100 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#72757F] transition duration-200 text-gray-700 text-sm"
                     placeholder="Recent Job"
                   />
                 </div>
 
-                {/* Column 2 */}
+                {/* Preferred Role */}
                 <div className="text-left">
                   <label
                     htmlFor={`qualification_${index}_preferred_roles`}
-                    className="block text-xl font-medium text-black mb-2"
+                    className="block text-sm font-medium text-black mb-1"
                   >
                     Preferred Role
                   </label>
@@ -562,16 +539,16 @@ const recentJob = formData.qualifications.length > 0 ? formData.qualifications[0
                     name={`qualification_${index}_preferred_roles`}
                     value={qual.preferred_roles || ''}
                     onChange={handleChange}
-                    className="mt-1 block w-full p-3 bg-gray-100 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#72757F] transition duration-200 text-[#4A4A4A] text-xl"
+                    className="block w-full p-2 bg-gray-100 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#72757F] transition duration-200 text-gray-700 text-sm"
                     placeholder="Preferred Role"
                   />
                 </div>
 
-                {/* Column 3 */}
+                {/* Availability */}
                 <div className="text-left">
                   <label
                     htmlFor={`qualification_${index}_availability`}
-                    className="block text-xl font-medium text-black mb-2"
+                    className="block text-sm font-medium text-black mb-1"
                   >
                     Availability
                   </label>
@@ -580,18 +557,19 @@ const recentJob = formData.qualifications.length > 0 ? formData.qualifications[0
                     name={`qualification_${index}_availability`}
                     value={qual.availability || ''}
                     onChange={handleChange}
-                    className="mt-1 block w-full p-3 bg-gray-100 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#72757F] transition duration-200 text-[#4A4A4A] text-xl"
+                    className="block w-full p-2 bg-gray-100 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#72757F] transition duration-200 text-gray-700 text-sm"
                     placeholder="Availability"
                   />
                 </div>
               </div>
 
-              {/* Row for Preferred Role Type, Work Arrangement, Compensation */}
-              <div className="grid grid-cols-3 gap-x-6 gap-y-6 text-[#989AA1] mt-6">
+              {/* Additional Details */}
+              <div className="grid grid-cols-3 gap-x-4 gap-y-4 text-gray-700">
+                {/* Preferred Role Type */}
                 <div className="text-left">
                   <label
                     htmlFor={`qualification_${index}_preferred_role_type`}
-                    className="block text-xl font-medium text-black mb-2"
+                    className="block text-sm font-medium text-black mb-1"
                   >
                     Preferred Role Type
                   </label>
@@ -600,15 +578,16 @@ const recentJob = formData.qualifications.length > 0 ? formData.qualifications[0
                     name={`qualification_${index}_preferred_role_type`}
                     value={qual.preferred_role_type || ''}
                     onChange={handleChange}
-                    className="mt-1 block w-full p-3 bg-gray-100 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#72757F] transition duration-200 text-[#4A4A4A] text-xl"
+                    className="block w-full p-2 bg-gray-100 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#72757F] transition duration-200 text-gray-700 text-sm"
                     placeholder="Preferred Role Type"
                   />
                 </div>
 
+                {/* Preferred Work Arrangement */}
                 <div className="text-left">
                   <label
                     htmlFor={`qualification_${index}_preferred_work_arrangement`}
-                    className="block text-xl font-medium text-black mb-2"
+                    className="block text-sm font-medium text-black mb-1"
                   >
                     Preferred Work Type
                   </label>
@@ -617,15 +596,16 @@ const recentJob = formData.qualifications.length > 0 ? formData.qualifications[0
                     name={`qualification_${index}_preferred_work_arrangement`}
                     value={qual.preferred_work_arrangement || ''}
                     onChange={handleChange}
-                    className="mt-1 block w-full p-3 bg-gray-100 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#72757F] transition duration-200 text-[#4A4A4A] text-xl"
+                    className="block w-full p-2 bg-gray-100 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#72757F] transition duration-200 text-gray-700 text-sm"
                     placeholder="Preferred Work Arrangement"
                   />
                 </div>
 
+                {/* Compensation */}
                 <div className="text-left">
                   <label
                     htmlFor={`qualification_${index}_compensation`}
-                    className="block text-xl font-medium text-black mb-2"
+                    className="block text-sm font-medium text-black mb-1"
                   >
                     Compensation
                   </label>
@@ -634,85 +614,76 @@ const recentJob = formData.qualifications.length > 0 ? formData.qualifications[0
                     name={`qualification_${index}_compensation`}
                     value={qual.compensation || ''}
                     onChange={handleChange}
-                    className="mt-1 block w-full p-3 bg-gray-100 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#72757F] transition duration-200 text-[#4A4A4A] text-xl"
+                    className="block w-full p-2 bg-gray-100 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#72757F] transition duration-200 text-gray-700 text-sm"
                     placeholder="Compensation"
                   />
                 </div>
               </div>
             </div>
           ))}
-          <div className="flex justify-end mt-6 space-x-4">
+
+          {/* Actions */}
+          <div className="flex justify-end mt-4 space-x-3">
             <button
               type="submit"
-              className="px-6 py-3 bg-gray-800 text-white rounded-md hover:bg-gray-700 transition duration-300"
+              className="px-4 py-2 bg-gray-800 text-white rounded-md hover:bg-gray-700 transition duration-300 text-sm"
             >
               Save Changes
             </button>
             <button
               type="button"
               onClick={() => handleEditToggle('qualifications')}
-              className="px-6 py-3 bg-gray-400 text-white rounded-md hover:bg-gray-500 transition duration-300"
+              className="px-4 py-2 bg-gray-400 text-white rounded-md hover:bg-gray-500 transition duration-300 text-sm"
             >
               Cancel
             </button>
           </div>
         </form>
       ) : (
-        <>
-          {/* Displaying qualifications in a neat layout */}
+        <div>
           {qualifications.length > 0 ? (
             qualifications.map((qual, index) => (
-              <div key={index} className="space-y-6">
-                {/* Layout using CSS Grid */}
-                <div className="grid grid-cols-3 gap-x-6 gap-y-6 text-xl font-medium text-[#72757F]">
-                  {/* Column 1 */}
+              <div key={index} className="space-y-3">
+                <div className="grid grid-cols-3 gap-x-4 gap-y-2 text-sm text-gray-700">
                   <div className="text-left">
-                    <strong className="text-xl font-medium text-black">Recent Job:</strong>
-                    <p className="text-gray-600">{qual.recent_job || 'N/A'}</p>
+                    <strong className="text-sm font-medium text-black">Recent Job:</strong>
+                    <p>{qual.recent_job || 'N/A'}</p>
                   </div>
-
-                  {/* Column 2 */}
                   <div className="text-left">
-                    <strong className="text-xl font-medium text-black">Preferred Role:</strong>
-                    <p className="text-gray-600">{qual.preferred_roles || 'N/A'}</p>
+                    <strong className="text-sm font-medium text-black">Preferred Role:</strong>
+                    <p>{qual.preferred_roles || 'N/A'}</p>
                   </div>
-
-                  {/* Column 3 */}
                   <div className="text-left">
-                    <strong className="text-xl font-medium text-black">Availability:</strong>
-                    <p className="text-gray-600">{qual.availability || 'N/A'}</p>
+                    <strong className="text-sm font-medium text-black">Availability:</strong>
+                    <p>{qual.availability || 'N/A'}</p>
                   </div>
                 </div>
 
-                {/* Row for Preferred Role Type, Work Arrangement, Compensation */}
-                <div className="grid grid-cols-3 gap-x-6 gap-y-6 text-xl font-medium text-[#72757F]">
+                <div className="grid grid-cols-3 gap-x-4 gap-y-2 text-sm text-gray-700">
                   <div className="text-left">
-                    <strong className="text-xl font-medium text-black">Preferred Role Type:</strong>
-                    <p className="text-gray-600">{qual.preferred_role_type || 'N/A'}</p>
+                    <strong className="text-sm font-medium text-black">Preferred Role Type:</strong>
+                    <p>{qual.preferred_role_type || 'N/A'}</p>
                   </div>
-
                   <div className="text-left">
-                    <strong className="text-xl font-medium text-black">Preferred Work Type:</strong>
-                    <p className="text-gray-600">{qual.preferred_work_arrangement || 'N/A'}</p>
+                    <strong className="text-sm font-medium text-black">Preferred Work Type:</strong>
+                    <p>{qual.preferred_work_arrangement || 'N/A'}</p>
                   </div>
-
                   <div className="text-left">
-                    <strong className="text-xl font-medium text-black">Compensation:</strong>
-                    <p className="text-gray-600">{qual.compensation || 'N/A'}</p>
+                    <strong className="text-sm font-medium text-black">Compensation:</strong>
+                    <p>{qual.compensation || 'N/A'}</p>
                   </div>
                 </div>
               </div>
             ))
           ) : (
-            <p className="text-gray-600">No qualifications available.</p>
+            <p className="text-sm text-gray-500">No qualifications available.</p>
           )}
-        </>
+        </div>
       )}
     </div>
   </div>
 </div>
 </div>
-
 
     
 <div className="flex flex-wrap gap-8 min-h-[300px]">
@@ -720,7 +691,7 @@ const recentJob = formData.qualifications.length > 0 ? formData.qualifications[0
   <div className="flex-1 min-h-[0px]">
     {/* Skills Header */}
     <div className="max-w-[900px] mx-auto flex justify-between items-center mb-4 -mt-2 relative">
-      <h2 className="text-2xl text-black mb-1">Skills</h2>
+      <h2 className="text-lg font-serif text-black truncate">Skills</h2>
       <button
         onClick={() => handleEditToggle('skills')}
         className="text-[#989AA1] hover:text-[#CCCDD2] transition duration-300"
@@ -731,7 +702,7 @@ const recentJob = formData.qualifications.length > 0 ? formData.qualifications[0
       <div className="absolute bottom-[-9px] left-0 w-full border-b-[2px] border-gray-300" />
     </div>
 
-    <div className="p-6 rounded-lg flex items-center justify-between min-h-[200px]">
+    <div className="p-6 rounded-lg flex items-center justify-between min-h-[150px]">
       {isEditing.skills ? (
         <form onSubmit={(e) => handleSubmit(e, 'skills')} className="w-full">
           <input
@@ -784,71 +755,71 @@ const recentJob = formData.qualifications.length > 0 ? formData.qualifications[0
       )}
     </div>
   </div>
-
-  {/* Certifications Section */}
-  <div className="flex-1 min-h-[0px]">
-    {/* Certifications Header */}
-    <div className="max-w-[900px] mx-auto flex justify-between items-center mb-4 -mt-2 relative">
-      <h2 className="text-2xl text-black">Certifications</h2>
-      <button
-        onClick={() => handleEditToggle('certifications')}
-        className="text-[#989AA1] hover:text-[#CCCDD2] transition duration-300"
-      >
-        <i className="fas fa-edit text-xl" />
-      </button>
-      {/* Underline line */}
-      <div className="absolute bottom-[-13px] left-0 w-full border-b-[2px] border-gray-300" />
-    </div>
-
-    <div className="p-6 rounded-lg flex items-center justify-between min-h-[200px]">
-      {isEditing.certifications ? (
-        <form onSubmit={(e) => handleSubmit(e, 'certifications')} className="w-full">
-          <input
-            type="text"
-            name="certifications"
-            value={formData.certifications.join(', ')}
-            onChange={(e) =>
-              setFormData({
-                ...formData,
-                certifications: e.target.value.split(',').map((cert) => cert.trim()),
-              })
-            }
-            className="border rounded-md p-2 w-full bg-gray-100"
-            placeholder="Enter certifications separated by commas"
-          />
-          <div className="flex justify-center mt-4">
-            <button
-              type="submit"
-              className="px-4 py-2 bg-black text-white rounded-md hover:bg-gray-800 transition duration-300"
-            >
-              Save Changes
-            </button>
-            <button
-              type="button"
-              onClick={() => handleEditToggle('certifications')}
-              className="ml-2 px-4 py-2 bg-gray-400 text-white rounded-md hover:bg-gray-500 transition duration-300"
-            >
-              Cancel
-            </button>
-          </div>
-        </form>
-      ) : (
-        <div className="flex justify-between w-full">
-          <div className="flex flex-col gap-4 text-[#989AA1]">
-            {certifications.length > 0 ? (
-              certifications.map((cert, index) => (
-                <div key={index} className="text-sm font-bold uppercase text-[#4A4A4A]">
-                  {cert}
-                </div>
-              ))
-            ) : (
-              <p>No certifications available.</p>
-            )}
-          </div>
-        </div>
-      )}
-    </div>
+{/* Certifications Section */}
+<div className="flex-1 min-h-[0px]">
+  {/* Certifications Header */}
+  <div className="max-w-[900px] mx-auto flex justify-between items-center mb-4 -mt-3 relative">
+    <h2 className="text-lg font-serif text-black truncate">Certifications</h2>
+    <button
+      onClick={() => handleEditToggle('certifications')}
+      className="text-[#989AA1] hover:text-[#CCCDD2] transition duration-300"
+    >
+      <i className="fas fa-edit text-xl" />
+    </button>
+    {/* Underline line */}
+    <div className="absolute bottom-[-13px] left-0 w-full border-b-[2px] border-gray-300" />
   </div>
+
+  <div className="p-6 rounded-lg flex items-center justify-between min-h-[200px]">
+    {isEditing.certifications ? (
+      <form onSubmit={(e) => handleSubmit(e, 'certifications')} className="w-full">
+        <input
+          type="text"
+          name="certifications"
+          value={formData.certifications.join(', ')}
+          onChange={(e) =>
+            setFormData({
+              ...formData,
+              certifications: e.target.value.split(',').map((cert) => cert.trim()),
+            })
+          }
+          className="border rounded-md p-2 w-full bg-gray-100"
+          placeholder="Enter certifications separated by commas"
+        />
+        <div className="flex justify-center mt-4">
+          <button
+            type="submit"
+            className="px-4 py-2 bg-black text-white rounded-md hover:bg-gray-800 transition duration-300"
+          >
+            Save Changes
+          </button>
+          <button
+            type="button"
+            onClick={() => handleEditToggle('certifications')}
+            className="ml-2 px-4 py-2 bg-gray-400 text-white rounded-md hover:bg-gray-500 transition duration-300"
+          >
+            Cancel
+          </button>
+        </div>
+      </form>
+    ) : (
+      <div className="grid grid-cols-3 grid-rows-2 gap-4 w-full">
+        {certifications.length > 0 ? (
+          certifications.slice(0, 6).map((cert, index) => (
+            <div
+              key={index}
+              className="text-sm font-bold uppercase text-[#4A4A4A] text-center p-2"
+            >
+              {cert}
+            </div>
+          ))
+        ) : (
+          <p className="col-span-3 text-center text-gray-500">No certifications available.</p>
+        )}
+      </div>
+    )}
+  </div>
+</div>
 </div>
 </div>
 </div>
@@ -857,4 +828,4 @@ const recentJob = formData.qualifications.length > 0 ? formData.qualifications[0
     );
 };
 
-export default PowerCandidateDetails;
+export default CandidateDetails;
