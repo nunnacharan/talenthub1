@@ -16,7 +16,7 @@ function Login() {
     setError(''); // Reset error on each login attempt
     
     try {
-      const response = await axios.post('http://localhost:3000/api/login', { email, password });
+      const response = await axios.post('https://main.d1jp2jnbi5jpx5.amplifyapp.com/api/login', { email, password });
       const user = response.data;
 
       if (response.status === 200) {
