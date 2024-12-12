@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import oneVectorImage from './images/onevector.png'; // Adjust the path based on your folder structure
+
 
 const OnboardingForm = () => {
     const navigate = useNavigate();
@@ -160,323 +162,417 @@ const OnboardingForm = () => {
   };
 
   return (
-      <div className="container mx-auto mt-10">
-          <div className="max-w-3xl mx-auto bg-white p-8 rounded-lg shadow-md">
-              <h2 className="text-2xl font-bold mb-6">{step === 1 ? 'Personal Information' : 'Qualifications'}</h2>
-              <form onSubmit={handleNext}>
-                  {step === 1 && (
-                      <div className="flex flex-wrap -mx-2">
-                          {/* Personal Information Fields */}
-                          <div className="w-full md:w-1/2 px-2 mb-4">
-                              <label className="block text-gray-700 text-sm font-bold mb-2">First Name</label>
-                              <input
-                                  type="text"
-                                  value={firstName}
-                                  onChange={(e) => setFirstName(e.target.value)}
-                                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring focus:ring-blue-300"
-                                  required
-                              />
-                          </div>
-                          <div className="w-full md:w-1/2 px-2 mb-4">
-                              <label className="block text-gray-700 text-sm font-bold mb-2">Last Name</label>
-                              <input
-                                  type="text"
-                                  value={lastName}
-                                  onChange={(e) => setLastName(e.target.value)}
-                                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring focus:ring-blue-300"
-                                  required
-                              />
-                          </div>
-                          <div className="w-full md:w-1/2 px-2 mb-4">
-                              <label className="block text-gray-700 text-sm font-bold mb-2">Phone Number</label>
-                              <input
-                                  type="tel"
-                                  value={phoneNo}
-                                  onChange={(e) => setPhoneNo(e.target.value)}
-                                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring focus:ring-blue-300"
-                                  required
-                              />
-                          </div>
-                          <div className="w-full md:w-1/2 px-2 mb-4">
-                              <label className="block text-gray-700 text-sm font-bold mb-2">Address Line 1</label>
-                              <input
-                                  type="text"
-                                  value={addressLine1}
-                                  onChange={(e) => setAddressLine1(e.target.value)}
-                                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring focus:ring-blue-300"
-                                  required
-                              />
-                          </div>
-                          <div className="w-full md:w-1/2 px-2 mb-4">
-                                <label className="block text-gray-700 text-sm font-bold mb-2">Address Line 2</label>
-                                <input
-                                    type="text"
-                                    value={addressLine2}
-                                    onChange={(e) => setAddressLine2(e.target.value)}
-                                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring focus:ring-blue-300"
-                                />
-                            </div>
-                            <div className="w-full md:w-1/2 px-2 mb-4">
-                                <label className="block text-gray-700 text-sm font-bold mb-2">City</label>
-                                <input
-                                    type="text"
-                                    value={city}
-                                    onChange={(e) => setCity(e.target.value)}
-                                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring focus:ring-blue-300"
-                                    required
-                                />
-                            </div>
-                            <div className="w-full md:w-1/2 px-2 mb-4">
-                                <label className="block text-gray-700 text-sm font-bold mb-2">State</label>
-                                <input
-                                    type="text"
-                                    value={state}
-                                    onChange={(e) => setState(e.target.value)}
-                                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring focus:ring-blue-300"
-                                    required
-                                />
-                            </div>
-                            <div className="w-full md:w-1/2 px-2 mb-4">
-                                <label className="block text-gray-700 text-sm font-bold mb-2">Country</label>
-                                <input
-                                    type="text"
-                                    value={country}
-                                    onChange={(e) => setCountry(e.target.value)}
-                                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring focus:ring-blue-300"
-                                    required
-                                />
-                            </div>
-                            <div className="w-full md:w-1/2 px-2 mb-4">
-                                <label className="block text-gray-700 text-sm font-bold mb-2">Postal Code</label>
-                                <input
-                                    type="text"
-                                    value={postalCode}
-                                    onChange={(e) => setPostalCode(e.target.value)}
-                                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring focus:ring-blue-300"
-                                    required
-                                />
-                            </div>
-                            <div className="w-full md:w-1/2 px-2 mb-4">
-                                <label className="block text-gray-700 text-sm font-bold mb-2">LinkedIn URL</label>
-                                <input
-                                    type="url"
-                                    value={linkedinUrl}
-                                    onChange={(e) => setLinkedinUrl(e.target.value)}
-                                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring focus:ring-blue-300"
-                                />
-                            </div>
-                            <div className="w-full md:w-1/2 px-2 mb-4">
-                                <label className="block text-gray-700 text-sm font-bold mb-2">Username</label>
-                                <input
-                                    type="text"
-                                    value={username}
-                                    onChange={(e) => setUsername(e.target.value)}
-                                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring focus:ring-blue-300"
-                                    required
-                                />
-                            </div>
-                            <div className="w-full md:w-1/2 px-2 mb-4">
-                                <label className="block text-gray-700 text-sm font-bold mb-2">Password</label>
-                                <input
-                                    type="password"
-                                    value={password}
-                                    onChange={(e) => setPassword(e.target.value)}
-                                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring focus:ring-blue-300"
-                                    required
-                                />
-                            </div>
-                            <div className="w-full md:w-1/2 px-2 mb-4">
-                                <label className="block text-gray-700 text-sm font-bold mb-2">Email</label>
-                                <input
-                                    type="email"
-                                    value={email}
-                                    onChange={(e) => setEmail(e                                    .target.value)}
-                                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring focus:ring-blue-300"
-                                    required
-                                />
-                            </div>
-                        </div>
-                    )}
-                    
-                    {step === 2 && (
-                        <div className="flex flex-wrap -mx-2">
-                            {/* Qualifications Fields */}
-                            <div className="w-full md:w-1/2 px-2 mb-4">
-                                <label className="block text-gray-700 text-sm font-bold mb-2">Recent Job</label>
-                                <input
-                                    type="text"
-                                    value={recentJob}
-                                    onChange={(e) => setRecentJob(e.target.value)}
-                                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring focus:ring-blue-300"
-                                />
-                            </div>
-                            <div className="w-full md:w-1/2 px-2 mb-4">
-                                <label className="block text-gray-700 text-sm font-bold mb-2">Preferred Roles</label>
-                                <input
-                                    type="text"
-                                    value={preferredRoles}
-                                    onChange={(e) => setPreferredRoles(e.target.value)}
-                                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring focus:ring-blue-300"
-                                />
-                            </div>
-                            <div className="w-full md:w-1/2 px-2 mb-4">
-                                <label className="block text-gray-700 text-sm font-bold mb-2">Availability</label>
-                                <input
-                                    type="text"
-                                    value={availability}
-                                    onChange={(e) => setAvailability(e.target.value)}
-                                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring focus:ring-blue-300"
-                                />
-                            </div>
-                            <div className="w-full md:w-1/2 px-2 mb-4">
-                                <label className="block text-gray-700 text-sm font-bold mb-2">Work Permit Status</label>
-                                <input
-                                    type="text"
-                                    value={workPermitStatus}
-                                    onChange={(e) => setWorkPermitStatus(e.target.value)}
-                                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring focus:ring-blue-300"
-                                />
-                            </div>
-                            <div className="w-full md:w-1/2 px-2 mb-4">
-                                <label className="block text-gray-700 text-sm font-bold mb-2">Preferred Role Type</label>
-                                <input
-                                    type="text"
-                                    value={preferredRoleType}
-                                    onChange={(e) => setPreferredRoleType(e.target.value)}
-                                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring focus:ring-blue-300"
-                                />
-                            </div>
-                            <div className="w-full md:w-1/2 px-2 mb-4">
-                                <label className="block text-gray-700 text-sm font-bold mb-2">Preferred Work Arrangement</label>
-                                <input
-                                    type="text"
-                                    value={preferredWorkArrangement}
-                                    onChange={(e) => setPreferredWorkArrangement(e.target.value)}
-                                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring focus:ring-blue-300"
-                                />
-                            </div>
-                            <div className="w-full md:w-1/2 px-2 mb-4">
-                                <label className="block text-gray-700 text-sm font-bold mb-2">Preferred Compensation Range</label>
-                                <input
-                                    type="text"
-                                    value={preferredCompensationRange}
-                                    onChange={(e) => setPreferredCompensationRange(e.target.value)}
-                                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring focus:ring-blue-300"
-                                />
-                            </div>
-                            <div className="w-full md:w-1/2 px-2 mb-4">
-                                <label className="block text-gray-700 text-sm font-bold mb-2">Resume</label>
-                                <input
-                                    type="file"
-                                    onChange={(e) => setResume(e.target.files[0])}
-                                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring focus                                    .ring-blue-300"
-                                    required
-                                />
-                            </div>
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-teal-50 to-gray-100">
+    <div className="w-full max-w-3xl bg-white bg-opacity-30 backdrop-blur-lg p-8 rounded-xl shadow-lg space-y-6">
+     {/* Logo and Title */}
+    <div className="flex items-center justify-center space-x-3 mb-6">
+      <img src={oneVectorImage} alt="OneVector Logo" className="w-[40px] h-[50px]" />
+      <h1 className="text-3xl font-sans-serif text-gray-800 tracking-wide">TalentHub</h1>
+    </div>
+  
+      {/* Heading */}
+      <h2 className="text-xl font-sans-serif text-black-800 text-left mb-8">
+        {step === 1 ? 'Personal Information' : 'Qualifications'}
+      </h2>
+  
+      <form onSubmit={handleNext} className="space-y-6">
+        {step === 1 && (
+          <>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {/* First Name */}
+              <div>
+                <label htmlFor="firstName" className="block text-gray-700 text-sm font-medium mb-2">First Name</label>
+                <input
+                  type="text"
+                  id="firstName"
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+                  className="w-full p-2 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-200 focus:outline-none transition-all ease-in-out duration-200 shadow-md placeholder:text-sm placeholder:text-gray-400"
+                  required
+                />
+              </div>
+                         {/* Last Name */}
+              <div>
+                <label htmlFor="lastName" className="block text-gray-700 text-sm font-medium mb-2">Last Name</label>
+                <input
+                  type="text"
+                  id="lastName"
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
+                  className="w-full p-2 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-200 focus:outline-none transition-all ease-in-out duration-200 shadow-md placeholder:text-sm placeholder:text-gray-400"
+                  required
+                />
+              </div>
+            </div>
+  
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {/* Phone Number */}
+              <div>
+                <label htmlFor="phoneNo" className="block text-gray-700 text-sm font-medium mb-2">Phone Number</label>
+                <input
+                  type="tel"
+                  id="phoneNo"
+                  value={phoneNo}
+                  onChange={(e) => setPhoneNo(e.target.value)}
+                  className="w-full p-2 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-200 focus:outline-none transition-all ease-in-out duration-200 shadow-md placeholder:text-sm placeholder:text-gray-400"
+                  required
+                />
+              </div>
+              {/* Address Line 1 */}
+              <div>
+                <label htmlFor="addressLine1" className="block text-gray-700 text-sm font-medium mb-2">Address Line 1</label>
+                <input
+                  type="text"
+                  id="addressLine1"
+                  value={addressLine1}
+                  onChange={(e) => setAddressLine1(e.target.value)}
+                  className="w-full p-2 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-200 focus:outline-none transition-all ease-in-out duration-200 shadow-md placeholder:text-sm placeholder:text-gray-400"
+                  required
+                />
+              </div>
+            </div>
+  
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {/* Address Line 2 */}
+              <div>
+                <label htmlFor="addressLine2" className="block text-gray-700 text-sm font-medium mb-2">Address Line 2</label>
+                <input
+                  type="text"
+                  id="addressLine2"
+                  value={addressLine2}
+                  onChange={(e) => setAddressLine2(e.target.value)}
+                  className="w-full p-2 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-200 focus:outline-none transition-all ease-in-out duration-200 shadow-md placeholder:text-sm placeholder:text-gray-400"
+                />
+              </div>
+              {/* City */}
+              <div>
+                <label htmlFor="city" className="block text-gray-700 text-sm font-medium mb-2">City</label>
+                <input
+                  type="text"
+                  id="city"
+                  value={city}
+                  onChange={(e) => setCity(e.target.value)}
+                  className="w-full p-2 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-200 focus:outline-none transition-all ease-in-out duration-200 shadow-md placeholder:text-sm placeholder:text-gray-400"
+                  required
+                />
+              </div>
+            </div>
+  
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {/* State */}
+              <div>
+                <label htmlFor="state" className="block text-gray-700 text-sm font-medium mb-2">State</label>
+                <input
+                  type="text"
+                  id="state"
+                  value={state}
+                  onChange={(e) => setState(e.target.value)}
+                  className="w-full p-2 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-200 focus:outline-none transition-all ease-in-out duration-200 shadow-md placeholder:text-sm placeholder:text-gray-400"
+                  required
+                />
+              </div>
+              {/* Country */}
+              <div>
+                <label htmlFor="country" className="block text-gray-700 text-sm font-medium mb-2">Country</label>
+                <input
+                  type="text"
+                  id="country"
+                  value={country}
+                  onChange={(e) => setCountry(e.target.value)}
+                  className="w-full p-2 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-200 focus:outline-none transition-all ease-in-out duration-200 shadow-md placeholder:text-sm placeholder:text-gray-400"
+                  required
+                />
+              </div>
+            </div>
+  
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {/* Postal Code */}
+              <div>
+                <label htmlFor="postalCode" className="block text-gray-700 text-sm font-medium mb-2">Postal Code</label>
+                <input
+                  type="text"
+                  id="postalCode"
+                  value={postalCode}
+                  onChange={(e) => setPostalCode(e.target.value)}
+                  className="w-full p-2 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-200 focus:outline-none transition-all ease-in-out duration-200 shadow-md placeholder:text-sm placeholder:text-gray-400"
+                  required
+                />
+              </div>
+              {/* LinkedIn URL */}
+              <div>
+                <label htmlFor="linkedinUrl" className="block text-gray-700 text-sm font-medium mb-2">LinkedIn URL</label>
+                <input
+                  type="url"
+                  id="linkedinUrl"
+                  value={linkedinUrl}
+                  onChange={(e) => setLinkedinUrl(e.target.value)}
+                  className="w-full p-2 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-200 focus:outline-none transition-all ease-in-out duration-200 shadow-md placeholder:text-sm placeholder:text-gray-400"
+                />
+              </div>
+            </div>
+  
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {/* Username */}
+              <div>
+                <label htmlFor="username" className="block text-gray-700 text-sm font-medium mb-2">Username</label>
+                <input
+                  type="text"
+                  id="username"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  className="w-full p-2 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-200 focus:outline-none transition-all ease-in-out duration-200 shadow-md placeholder:text-sm placeholder:text-gray-400"
+                  required
+                />
+              </div>
+              {/* Password */}
+              <div>
+                <label htmlFor="password" className="block text-gray-700 text-sm font-medium mb-2">Password</label>
+                <input
+                  type="password"
+                  id="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="w-full p-2 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-200 focus:outline-none transition-all ease-in-out duration-200 shadow-md placeholder:text-sm placeholder:text-gray-400"
+                  required
+                />
+              </div>
+            </div>
+  
+            <div className="grid grid-cols-1 gap-4">
+              {/* Email */}
+              <div>
+                <label htmlFor="email" className="block text-gray-700 text-sm font-medium mb-2">Email</label>
+                <input
+                  type="email"
+                  id="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="w-full p-2 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-200 focus:outline-none transition-all ease-in-out duration-200 shadow-md placeholder:text-sm placeholder:text-gray-400"
+                  required
+                />
+              </div>
+            </div>
+          </>
+        )}
+  
+                
+  {step === 2 && (
+  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+    {/* Recent Job */}
+    <div className="w-full px-2 mb-4">
+      <label className="block text-gray-700 text-sm font-bold mb-2">Recent Job</label>
+      <input
+        type="text"
+        value={recentJob}
+        onChange={(e) => setRecentJob(e.target.value)}
+        className="w-full p-2 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-200 focus:outline-none transition-all ease-in-out duration-200 shadow-md placeholder:text-sm placeholder:text-gray-400"
+      />
+    </div>
 
-                            <div className="w-full px-2 mb-4">
-                                <label className="block text-gray-700 text-sm font-bold mb-2">Skills</label>
-                                <div className="relative">
-                                    <button
-                                        type="button"
-                                        onClick={toggleSkillsDropdown}
-                                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring focus:ring-blue-300"
-                                    >
-                                        {selectedSkills.length > 0 ? selectedSkills.join(', ') : 'Select Skills'}
-                                    </button>
-                                    {isSkillsDropdownOpen && (
-                                        <div className="absolute z-10 bg-white border rounded shadow-lg mt-1 w-full">
-                                            {skills.map((skill, index) => (
-                                                <div
-                                                    key={index}
-                                                    onClick={() => handleSkillSelect(skill)}
-                                                    className="cursor-pointer hover:bg-gray-100 px-4 py-2"
-                                                >
-                                                    {skill}
-                                                </div>
-                                            ))}
-                                        </div>
-                                    )}
-                                    <input
-                                        type="text"
-                                        value={newSkill}
-                                        onChange={(e) => setNewSkill(e.target.value)}
-                                        placeholder="Add a new skill"
-                                        className="mt-2 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring focus:ring-blue-300"
-                                    />
-                                    <button
-                                        type="button"
-                                        onClick={handleAddSkill}
-                                        className="mt-2 bg-blue-500 text-white py-2 px-4 rounded"
-                                    >
-                                        Add Skill
-                                    </button>
-                                </div>
-                            </div>
+    {/* Preferred Roles */}
+    <div className="w-full px-2 mb-4">
+      <label className="block text-gray-700 text-sm font-bold mb-2">Preferred Roles</label>
+      <input
+        type="text"
+        value={preferredRoles}
+        onChange={(e) => setPreferredRoles(e.target.value)}
+        className="w-full p-2 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-200 focus:outline-none transition-all ease-in-out duration-200 shadow-md placeholder:text-sm placeholder:text-gray-400"
+      />
+    </div>
 
-                            <div className="w-full px-2 mb-4">
-                                <label className="block text-gray-700 text-sm font-bold mb-2">Certifications</label>
-                                <div className="relative">
-                                    <button
-                                        type="button"
-                                        onClick={toggleCertificationsDropdown}
-                                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring focus:ring-blue-300"
-                                    >
-                                        {selectedCertifications.length > 0 ? selectedCertifications.join(', ') : 'Select Certifications'}
-                                    </button>
-                                    {isCertificationsDropdownOpen && (
-                                        <div className="absolute z-10 bg-white border rounded shadow-lg mt-1 w-full">
-                                            {certifications.map((certification, index) => (
-                                                <div
-                                                    key={index}
-                                                    onClick={() => handleCertificationSelect(certification)}
-                                                    className="cursor-pointer hover:bg-gray-100 px-4 py-2"
-                                                >
-                                                    {certification}
-                                                </div>
-                                            ))}
-                                        </div>
-                                    )}
-                                    <input
-                                        type="text"
-                                        value={newCertification}
-                                        onChange={(e) => setNewCertification(e.target.value)}
-                                        placeholder="Add a new certification"
-                                        className="mt-2 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring focus:ring-blue-300"
-                                    />
-                                    <button
-                                        type="button"
-                                        onClick={handleAddCertification}
-                                        className="mt-2 bg-blue-500 text-white py-2 px-4 rounded"
-                                    >
-                                        Add Certification
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    )}
+    {/* Availability */}
+    <div className="w-full px-2 mb-4">
+      <label className="block text-gray-700 text-sm font-bold mb-2">Availability</label>
+      <input
+        type="text"
+        value={availability}
+        onChange={(e) => setAvailability(e.target.value)}
+        className="w-full p-2 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-200 focus:outline-none transition-all ease-in-out duration-200 shadow-md placeholder:text-sm placeholder:text-gray-400"
+      />
+    </div>
 
-                    <div className="flex justify-between mt-6">
-                        {step > 1 && (
-                            <button
-                                type="button"
-                                onClick={handlePrevious}
-                                className="bg-gray-300 text-gray-700 py-2 px-4 rounded"
-                            >
-                                Previous
-                            </button>
-                        )}
-                        <button
-                            type="submit"
-                            className="bg-blue-500 text-white py-2 px-4 rounded"
-                        >
-                            {step === 2 ? 'Submit' : 'Next'}
-                        </button>
-                    </div>
+    {/* Work Permit Status */}
+    <div className="w-full px-2 mb-4">
+      <label className="block text-gray-700 text-sm font-bold mb-2">Work Permit Status</label>
+      <input
+        type="text"
+        value={workPermitStatus}
+        onChange={(e) => setWorkPermitStatus(e.target.value)}
+        className="w-full p-2 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-200 focus:outline-none transition-all ease-in-out duration-200 shadow-md placeholder:text-sm placeholder:text-gray-400"
+      />
+    </div>
+
+    {/* Preferred Role Type */}
+    <div className="w-full px-2 mb-4">
+      <label className="block text-gray-700 text-sm font-bold mb-2">Preferred Role Type</label>
+      <input
+        type="text"
+        value={preferredRoleType}
+        onChange={(e) => setPreferredRoleType(e.target.value)}
+        className="w-full p-2 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-200 focus:outline-none transition-all ease-in-out duration-200 shadow-md placeholder:text-sm placeholder:text-gray-400"
+      />
+    </div>
+
+    {/* Preferred Work Arrangement */}
+    <div className="w-full px-2 mb-4">
+      <label className="block text-gray-700 text-sm font-bold mb-2">Preferred Work Arrangement</label>
+      <input
+        type="text"
+        value={preferredWorkArrangement}
+        onChange={(e) => setPreferredWorkArrangement(e.target.value)}
+        className="w-full p-2 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-200 focus:outline-none transition-all ease-in-out duration-200 shadow-md placeholder:text-sm placeholder:text-gray-400"
+      />
+    </div>
+
+    {/* Preferred Compensation Range */}
+    <div className="w-full px-2 mb-4">
+      <label className="block text-gray-700 text-sm font-bold mb-2">Preferred Compensation Range</label>
+      <input
+        type="text"
+        value={preferredCompensationRange}
+        onChange={(e) => setPreferredCompensationRange(e.target.value)}
+        className="w-full p-2 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-200 focus:outline-none transition-all ease-in-out duration-200 shadow-md placeholder:text-sm placeholder:text-gray-400"
+      />
+    </div>
+
+    {/* Resume */}
+    <div className="w-full px-2 mb-4">
+      <label className="block text-gray-700 text-sm font-bold mb-2">Resume</label>
+      <input
+        type="file"
+        onChange={(e) => setResume(e.target.files[0])}
+        className="w-full p-2 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-200 focus:outline-none transition-all ease-in-out duration-200 shadow-md placeholder:text-sm placeholder:text-gray-400"
+        required
+      />
+    </div>
+
+    {/* Skills */}
+    <div className="w-full px-2 mb-8 flex flex-col col-span-full">
+      <h2 className="text-xl font-sans-serif text-black-800 text-left mb-4">Skills</h2>
+        <input
+          type="text"
+          value={newSkill}
+          onChange={(e) => setNewSkill(e.target.value)}
+          placeholder="Add a new skill"
+          className="mb-2 w-full p-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-200 focus:outline-none transition-all ease-in-out duration-200 shadow-md placeholder:text-sm placeholder:text-gray-400"
+        />
+          <div className="relative">
+        <button
+          type="button"
+          onClick={toggleSkillsDropdown}
+          className="w-full p-2 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-200 focus:outline-none transition-all ease-in-out duration-200 shadow-md flex items-center justify-between"
+        >
+          <span>
+            {selectedSkills.length > 0 ? selectedSkills.join(', ') : 'Select Skills'}
+          </span>
+          <svg
+            className="w-5 h-5 text-gray-500"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+          </svg>
+        </button>
+        {isSkillsDropdownOpen && (
+          <div className="absolute z-10 bg-gray-50 border rounded shadow-lg mt-1 w-full max-h-60 overflow-y-auto">
+            {skills.map((skill, index) => (
+              <div
+                key={index}
+                onClick={() => handleSkillSelect(skill)}
+                className="cursor-pointer hover:bg-gray-100 px-4 py-2"
+              >
+                {skill}
+              </div>
+            ))}
+          </div>
+        )}
+        <button
+          type="button"
+          onClick={handleAddSkill}
+          className="mt-2 w-full bg-gradient-to-r from-teal-100 via-teal-200 to-teal-100 text-black py-3 px-4 rounded-lg shadow-md"
+        >
+          Add Skill
+        </button>
+      </div>
+    </div>
+
+    {/* Certifications */}
+    <div className="w-full px-2 mb-8 flex flex-col col-span-full">
+      <h2 className="text-xl font-sans-serif text-black-800 text-left mb-4">Certifications</h2>
+        <input
+          type="text"
+          value={newCertification}
+          onChange={(e) => setNewCertification(e.target.value)}
+          placeholder="Add a new certification"
+          className="mb-2 w-full p-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-200 focus:outline-none transition-all ease-in-out duration-200 shadow-md placeholder:text-sm placeholder:text-gray-400"
+        />
+        <div className="relative">
+        <button
+          type="button"
+          onClick={toggleCertificationsDropdown}
+          className="w-full p-2 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-200 focus:outline-none transition-all ease-in-out duration-200 shadow-md flex items-center justify-between"
+        >
+          <span>
+            {selectedCertifications.length > 0 ? selectedCertifications.join(', ') : 'Select Certifications'}
+          </span>
+          <svg
+            className="w-5 h-5 text-gray-500"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+          </svg>
+        </button>
+        {isCertificationsDropdownOpen && (
+          <div className="absolute z-10 bg-gray-50 border rounded shadow-lg mt-1 w-full max-h-60 overflow-y-auto">
+            {certifications.map((certification, index) => (
+              <div
+                key={index}
+                onClick={() => handleCertificationSelect(certification)}
+                className="cursor-pointer hover:bg-gray-100 px-4 py-2"
+              >
+                {certification}
+              </div>
+            ))}
+          </div>
+        )}
+      
+        <button
+          type="button"
+          onClick={handleAddCertification}
+          className="mt-2 w-full bg-gradient-to-r from-teal-100 via-teal-200 to-teal-100 text-black py-3 px-4 rounded-lg shadow-md"
+        >
+          Add Certification
+        </button>
+      </div>
+    </div>
+  </div>
+  )}
+ <div className="flex justify-between mt-6">
+    {step > 1 && (
+        <button
+            type="button"
+            onClick={handlePrevious}
+            className="bg-gray-200 text-gray-700 py-3 px-6 rounded-lg shadow-md hover:bg-gray-300 focus:ring-2 focus:ring-gray-400 focus:outline-none transition-all ease-in-out duration-200"
+        >
+            Previous
+        </button>
+    )}
+    <button
+        type="submit"
+        className="bg-gradient-to-r from-[#15abcd] to-[#094DA2] text-black py-3 px-6 rounded-lg shadow-md hover:bg-teal-600 focus:ring-2 focus:ring-teal-300 focus:outline-none transition-all ease-in-out duration-200"
+    >
+        {step === 2 ? 'Submit' : 'Next'}
+    </button>
+</div>
+
                 </form>
             </div>
         </div>
     );
 };
-
 export default OnboardingForm;
