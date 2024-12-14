@@ -41,7 +41,7 @@ const [magicLinks, setMagicLinks] = useState([]);
       setLoading(true);
       setError('');
       try {
-        const response = await axios.get('http://localhost:3000/api/candidates');
+        const response = await axios.get('https://5q5faxzgb7.execute-api.ap-south-1.amazonaws.com/api/candidates');
         const filteredCandidates = response.data
           .filter((candidate) => candidate.role !== 'admin')
           .sort((a, b) => (a.role === 'power_user' ? -1 : 1));
@@ -58,7 +58,7 @@ const [magicLinks, setMagicLinks] = useState([]);
 
   const fetchMagicLinks = async () => {
     try {
-        const response = await axios.get('http://localhost:3000/api/magic-links');
+        const response = await axios.get('https://5q5faxzgb7.execute-api.ap-south-1.amazonaws.com/api/magic-links');
         setMagicLinks(response.data);
         setShowHistoryPopup(true);
     } catch (error) {
@@ -75,7 +75,7 @@ const [magicLinks, setMagicLinks] = useState([]);
     if (window.confirm('Are you sure you want to delete this candidate and all their associated data?')) {
       try {
         console.log(`Attempting to delete candidate with ID: ${id}`);
-        const response = await axios.delete(`http://localhost:3000/api/candidates/${id}`);
+        const response = await axios.delete(`https://5q5faxzgb7.execute-api.ap-south-1.amazonaws.com/api/candidates/${id}`);
         console.log('Delete response:', response);
         
         // Update candidates list after successful deletion
@@ -106,7 +106,7 @@ const [magicLinks, setMagicLinks] = useState([]);
   
     try {
       // Send magic link to the email
-      await axios.post('http://localhost:3000/api/send-magic-link', { email });
+      await axios.post('https://5q5faxzgb7.execute-api.ap-south-1.amazonaws.com/api/send-magic-link', { email });
   
       // Add the sent email to history
       setSentEmails([...sentEmails, email]);
@@ -156,7 +156,7 @@ const [magicLinks, setMagicLinks] = useState([]);
     if (!selectedCandidate) return;
 
     try {
-      await axios.put(`http://localhost:3000/api/candidates/${selectedCandidate.id}/role`, { role: newRole });
+      await axios.put(`https://5q5faxzgb7.execute-api.ap-south-1.amazonaws.com/api/candidates/${selectedCandidate.id}/role`, { role: newRole });
 
       const updatedCandidates = candidates.map((candidate) =>
         candidate.id === selectedCandidate.id ? { ...candidate, role: newRole } : candidate
@@ -177,7 +177,7 @@ const [magicLinks, setMagicLinks] = useState([]);
     if (!selectedCandidate) return;
 
     try {
-      await axios.delete(`http://localhost:3000/api/candidates/${selectedCandidate.id}`);
+      await axios.delete(`https://5q5faxzgb7.execute-api.ap-south-1.amazonaws.com/api/candidates/${selectedCandidate.id}`);
       setCandidates(candidates.filter((candidate) => candidate.id !== selectedCandidate.id));
       setSuccessMessageText('Candidate deleted successfully!');
       setShowSuccessMessage(true);
