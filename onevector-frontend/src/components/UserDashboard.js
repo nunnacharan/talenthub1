@@ -63,7 +63,7 @@ function UserDashboard() {
         }
 
         try {
-            await axios.put(https://5q5faxzgb7.execute-api.ap-south-1.amazonaws.com/api/user/info/email`, formData, {
+            await axios.put('https://5q5faxzgb7.execute-api.ap-south-1.amazonaws.com/api/user/info/email`, formData, {
                 params: { email },
                 headers: {
                     'Content-Type': 'multipart/form-data'
