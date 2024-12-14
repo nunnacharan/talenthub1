@@ -9,8 +9,6 @@ import { motion } from 'framer-motion';
 import { FaCrown } from 'react-icons/fa';
 import oneVectorImage from './images/onevector.png'; // Adjust the path based on your folder structure4
 import MagicLinkHistoryPopup from './MagicLinkHistoryPopup';
-
-
 function AdminDashboard() {
   const [details, setDetails] = useState(null);
   const [email, setEmail] = useState('');
